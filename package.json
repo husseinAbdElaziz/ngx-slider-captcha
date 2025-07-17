@@ -27,7 +27,8 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "test:lib": "ng test ngx-slider-captcha --watch=false --browsers=ChromeHeadless"
   },
   "private": true,
   "dependencies": {
