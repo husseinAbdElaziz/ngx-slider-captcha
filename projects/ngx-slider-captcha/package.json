@@ -1,6 +1,17 @@
 {
   "name": "ngx-slider-captcha",
-  "version": "0.0.1",
+  "version": "0.1.1",
+  "description": "A modern Angular slider captcha component that provides a puzzle-based verification system",
+  "keywords": [
+    "angular",
+    "captcha",
+    "slider",
+    "puzzle",
+    "verification",
+    "security",
+    "component",
+    "typescript"
+  ],
   "peerDependencies": {
     "@angular/common": ">=17.0.0",
     "@angular/core": ">=17.0.0"
@@ -15,6 +26,8 @@
     "url": "https://github.com/husseinabdelaziz"
   },
   "repository": {
-    "type": "git"
-  }
+    "type": "git",
+    "url": "https://github.com/husseinabdelaziz/ngx-slider-captcha"
+  },
+  "license": "MIT"
 }

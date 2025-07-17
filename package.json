@@ -1,6 +1,6 @@
 {
   "name": "ngx-slider-captcha",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "A modern Angular slider captcha component that provides a puzzle-based verification system",
   "keywords": [
     "angular",
