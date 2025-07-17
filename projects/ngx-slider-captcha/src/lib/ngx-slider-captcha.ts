@@ -1,14 +1,14 @@
 import {
   AfterViewInit,
   Component,
+  computed,
   DestroyRef,
   ElementRef,
-  EventEmitter,
   HostListener,
   inject,
-  Input,
+  input,
   OnInit,
-  Output,
+  output,
   Renderer2,
   ViewChild,
 } from '@angular/core';
@@ -65,21 +65,17 @@ export class NgxSliderCaptcha implements OnInit, AfterViewInit {
   private readonly renderer = inject(Renderer2);
   private readonly destroyRef = inject(DestroyRef);
 
-  @Input() config: CaptchaConfig = {
+  config = input<CaptchaConfig>({
     image: '',
     failTimeout: MINUTE_IN_MS,
-  };
+  });
 
-  @Output() success = new EventEmitter<CaptchaSuccess>();
-  @Output() failed = new EventEmitter<void>();
+  failTimeout = computed(() => this.config().failTimeout);
 
-  get failTimeout(): number {
-    return this.config.failTimeout;
-  }
+  image = computed(() => this.config().image);
 
-  get image(): string {
-    return this.config.image;
-  }
+  success = output<CaptchaSuccess>();
+  failed = output<void>();
 
   sliderPosition = 0;
   x = 0; // x position for block puzzle piece
@@ -93,7 +89,7 @@ export class NgxSliderCaptcha implements OnInit, AfterViewInit {
   }
 
   setTimer() {
-    timer(this.failTimeout)
+    timer(this.failTimeout())
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
         next: () => {
@@ -136,7 +132,7 @@ export class NgxSliderCaptcha implements OnInit, AfterViewInit {
     const img = new Image();
     img.crossOrigin = 'Anonymous';
     img.src =
-      this.image || 'https://picsum.photos/280/155/?random&t=' + Date.now();
+      this.image() || 'https://picsum.photos/280/155/?random&t=' + Date.now();
     img.onload = () => {
       this.x = this.getRandomNumber(50, 200);
       this.y = this.getRandomNumber(20, 100);

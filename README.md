@@ -1,59 +1,230 @@
 # NgxSliderCaptcha
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.0.0.
+A modern Angular slider captcha component that provides a puzzle-based verification system. Users need to slide a puzzle piece to complete the captcha challenge.
 
-## Development server
+## Features
 
-To start a local development server, run:
+- 🎯 **Puzzle-based verification**: Users slide a puzzle piece to complete the captcha
+- ⏱️ **Configurable timeout**: Set custom timeout for captcha completion
+- 🖼️ **Custom images**: Use your own images or random images from Picsum
+- 📱 **Touch support**: Works on both desktop and mobile devices
+- 🎨 **Modern UI**: Clean and responsive design
+- ⚡ **Angular 17+**: Built with the latest Angular features and standalone components
 
-```bash
-ng serve
-```
-
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## Installation
 
 ```bash
-ng generate component component-name
+npm install ngx-slider-captcha
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## Usage
 
-```bash
-ng generate --help
+### Basic Usage
+
+Import the `NgxSliderCaptcha` component in your Angular module or standalone component:
+
+```typescript
+import { NgxSliderCaptcha } from "ngx-slider-captcha";
+
+@Component({
+  selector: "app-example",
+  imports: [NgxSliderCaptcha],
+  template: ` <ngx-slider-captcha (success)="onCaptchaSuccess($event)" (failed)="onCaptchaFailed()" /> `,
+})
+export class ExampleComponent {
+  onCaptchaSuccess(event: CaptchaSuccess) {
+    console.log("Captcha completed successfully!", event.value);
+  }
+
+  onCaptchaFailed() {
+    console.log("Captcha failed or timed out");
+  }
+}
 ```
 
-## Building
+### With Custom Configuration
 
-To build the project run:
+```typescript
+import { NgxSliderCaptcha, CaptchaConfig } from "ngx-slider-captcha";
 
-```bash
-ng build
+@Component({
+  selector: "app-example",
+  imports: [NgxSliderCaptcha],
+  template: ` <ngx-slider-captcha [config]="captchaConfig" (success)="onCaptchaSuccess($event)" (failed)="onCaptchaFailed()" /> `,
+})
+export class ExampleComponent {
+  captchaConfig: CaptchaConfig = {
+    image: "https://example.com/your-custom-image.jpg",
+    failTimeout: 30000, // 30 seconds
+  };
+
+  onCaptchaSuccess(event: CaptchaSuccess) {
+    console.log("Captcha completed!", event.value);
+  }
+
+  onCaptchaFailed() {
+    console.log("Captcha failed");
+  }
+}
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+## Configuration
 
-## Running unit tests
+### CaptchaConfig Interface
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
+```typescript
+interface CaptchaConfig {
+  image: string; // URL of the image to use for the captcha
+  failTimeout: number; // Timeout in milliseconds (default: 60000ms)
+}
 ```
 
-## Running end-to-end tests
+### Properties
 
-For end-to-end (e2e) testing, run:
+| Property | Type            | Default                             | Description                          |
+| -------- | --------------- | ----------------------------------- | ------------------------------------ |
+| `config` | `CaptchaConfig` | `{ image: '', failTimeout: 60000 }` | Configuration object for the captcha |
 
-```bash
-ng e2e
+### Events
+
+| Event     | Type             | Description                                        |
+| --------- | ---------------- | -------------------------------------------------- |
+| `success` | `CaptchaSuccess` | Emitted when the captcha is completed successfully |
+| `failed`  | `void`           | Emitted when the captcha times out or fails        |
+
+### CaptchaSuccess Interface
+
+```typescript
+interface CaptchaSuccess {
+  value: number; // The position value when the captcha was completed
+}
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+## Examples
 
-## Additional Resources
+### Example 1: Basic Implementation
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+```typescript
+import { Component } from "@angular/core";
+import { NgxSliderCaptcha, CaptchaSuccess } from "ngx-slider-captcha";
+
+@Component({
+  selector: "app-login",
+  imports: [NgxSliderCaptcha],
+  template: `
+    <div class="login-form">
+      <h2>Login</h2>
+      <input type="email" placeholder="Email" />
+      <input type="password" placeholder="Password" />
+
+      <div class="captcha-container">
+        <ngx-slider-captcha (success)="onCaptchaSuccess($event)" (failed)="onCaptchaFailed()" />
+      </div>
+
+      <button [disabled]="!captchaCompleted">Login</button>
+    </div>
+  `,
+})
+export class LoginComponent {
+  captchaCompleted = false;
+
+  onCaptchaSuccess(event: CaptchaSuccess) {
+    this.captchaCompleted = true;
+    console.log("Captcha verified!");
+  }
+
+  onCaptchaFailed() {
+    this.captchaCompleted = false;
+    console.log("Please complete the captcha");
+  }
+}
+```
+
+### Example 2: Custom Image and Timeout
+
+```typescript
+import { Component } from "@angular/core";
+import { NgxSliderCaptcha, CaptchaConfig } from "ngx-slider-captcha";
+
+@Component({
+  selector: "app-registration",
+  imports: [NgxSliderCaptcha],
+  template: ` <ngx-slider-captcha [config]="captchaConfig" (success)="onCaptchaSuccess($event)" (failed)="onCaptchaFailed()" /> `,
+})
+export class RegistrationComponent {
+  captchaConfig: CaptchaConfig = {
+    image: "https://your-domain.com/captcha-images/random.jpg",
+    failTimeout: 45000, // 45 seconds
+  };
+
+  onCaptchaSuccess(event: CaptchaSuccess) {
+    // Handle successful captcha completion
+    this.submitRegistration();
+  }
+
+  onCaptchaFailed() {
+    // Handle captcha failure
+    alert("Please complete the captcha within the time limit");
+  }
+
+  private submitRegistration() {
+    // Submit registration form
+  }
+}
+```
+
+## Styling
+
+The component comes with built-in styles, but you can customize the appearance using CSS:
+
+```scss
+// Custom styles for the captcha container
+.captcha-container {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 10px;
+  background: #f9f9f9;
+}
+
+// Custom slider styles
+.slider {
+  background: #007bff;
+  border-radius: 4px;
+
+  &:hover {
+    background: #0056b3;
+  }
+}
+```
+
+## Browser Support
+
+- Chrome (latest)
+- Firefox (latest)
+- Safari (latest)
+- Edge (latest)
+- Mobile browsers (iOS Safari, Chrome Mobile)
+
+## Requirements
+
+- Angular 17.0.0 or higher
+- TypeScript 5.0 or higher
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Add tests if applicable
+5. Submit a pull request
+
+## License
+
+This project is licensed under the MIT License.
+
+## Author
+
+**Hussein AbdElaziz**
+
+- Email: me@hussein.ee
+- GitHub: [@husseinabdelaziz](https://github.com/husseinabdelaziz)
