@@ -1,5 +1,8 @@
 # NgxSliderCaptcha
 
+[![Test](https://github.com/husseinabdelaziz/ngx-slider-captcha/actions/workflows/test.yml/badge.svg)](https://github.com/husseinabdelaziz/ngx-slider-captcha/actions/workflows/test.yml)
+[![npm version](https://badge.fury.io/js/ngx-slider-captcha.svg)](https://badge.fury.io/js/ngx-slider-captcha)
+
 A modern Angular slider captcha component that provides a puzzle-based verification system. Users need to slide a puzzle piece to complete the captcha challenge.
 
 ## Features
@@ -217,6 +220,91 @@ The component comes with built-in styles, but you can customize the appearance u
 3. Make your changes
 4. Add tests if applicable
 5. Submit a pull request
+
+## Development
+
+### Prerequisites
+
+- Node.js 18.x or higher
+- npm or yarn
+
+### Setup
+
+```bash
+# Clone the repository
+git clone https://github.com/husseinabdelaziz/ngx-slider-captcha.git
+cd ngx-slider-captcha
+
+# Install dependencies
+npm install
+
+# Run tests
+npm run test:lib
+npm run test:app
+
+# Run linting
+npm run lint
+
+# Build the library
+npm run build:lib
+
+# Start the demo app
+npm run start:app
+```
+
+### Available Scripts
+
+| Script              | Description                            |
+| ------------------- | -------------------------------------- |
+| `npm run test:lib`  | Run tests for the library              |
+| `npm run test:app`  | Run tests for the demo app             |
+| `npm run lint`      | Run ESLint on all TypeScript files     |
+| `npm run lint:fix`  | Fix ESLint issues automatically        |
+| `npm run build:lib` | Build the library for production       |
+| `npm run build:app` | Build the demo app for production      |
+| `npm run start:app` | Start the demo app in development mode |
+
+## Continuous Integration
+
+This project uses GitHub Actions for continuous integration and deployment:
+
+### Test Workflow
+
+The test workflow runs on every push and pull request to `main` and `develop` branches:
+
+- **Node.js Compatibility**: Tests with Node.js 18.x and 20.x
+- **Linting**: Runs ESLint to ensure code quality
+- **Unit Tests**: Executes tests for both library and demo app
+- **Build Verification**: Ensures both library and demo app build successfully
+- **Security Audit**: Runs npm audit to check for security vulnerabilities
+- **Code Coverage**: Uploads test coverage reports to Codecov
+
+### Publish Workflow
+
+The publish workflow automatically publishes new versions to npm when a GitHub release is created:
+
+- **Pre-publish Tests**: Runs all tests before publishing
+- **Build Verification**: Ensures the library builds correctly
+- **NPM Publishing**: Publishes to npm registry
+
+### Setup for GitHub Actions
+
+To enable the GitHub Actions workflows:
+
+1. **NPM Token**: Add your npm token as a repository secret named `NPM_TOKEN`
+
+   - Go to npmjs.com → Account → Access Tokens
+   - Create a new token with publish permissions
+   - Add it to your repository secrets
+
+2. **Codecov Integration** (Optional):
+   - Connect your repository to Codecov for coverage reports
+   - The workflow will automatically upload coverage data
+
+### Workflow Files
+
+- `.github/workflows/test.yml` - Main testing workflow
+- `.github/workflows/publish.yml` - Publishing workflow
 
 ## License
 
