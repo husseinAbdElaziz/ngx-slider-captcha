@@ -7,6 +7,11 @@
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
     "noImplicitReturns": true,
+    "paths": {
+      "ngx-slider-captcha": [
+        "./dist/ngx-slider-captcha"
+      ]
+    },
     "noFallthroughCasesInSwitch": true,
     "skipLibCheck": true,
     "isolatedModules": true,
@@ -22,5 +27,19 @@
     "typeCheckHostBindings": true,
     "strictTemplates": true
   },
-  "files": []
+  "files": [],
+  "references": [
+    {
+      "path": "./projects/ngx-slider-captcha/tsconfig.lib.json"
+    },
+    {
+      "path": "./projects/ngx-slider-captcha/tsconfig.spec.json"
+    },
+    {
+      "path": "./projects/ngx-slider-captcha-app/tsconfig.app.json"
+    },
+    {
+      "path": "./projects/ngx-slider-captcha-app/tsconfig.spec.json"
+    }
+  ]
 }

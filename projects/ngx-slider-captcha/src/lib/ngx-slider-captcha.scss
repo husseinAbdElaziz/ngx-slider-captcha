@@ -1,0 +1,73 @@
+.captcha-container {
+  width: 280px;
+  position: relative;
+  margin: 20px auto;
+  height: 200px;
+  border: 1px solid #ddd;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.block {
+  z-index: 100;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 42px;
+  height: 155px;
+  cursor: pointer;
+}
+
+.refreshIcon {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  cursor: pointer;
+  color: #666;
+  background-color: #f2f2f2;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 3px #aaa;
+}
+
+.sliderContainer {
+  width: 280px;
+  height: 40px;
+  background-color: #f2f2f2;
+  position: relative;
+  margin-top: 160px;
+  border-radius: 5px;
+  overflow: hidden;
+  box-shadow: 0 0 3px #aaa;
+}
+
+.sliderMask {
+  height: 100%;
+  background-color: #5cb85c;
+}
+
+.slider {
+  width: 40px;
+  height: 100%;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 200;
+}
+
+.sliderIcon {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+}

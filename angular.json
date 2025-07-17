@@ -3,5 +3,113 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
+    "ngx-slider-captcha": {
+      "projectType": "library",
+      "root": "projects/ngx-slider-captcha",
+      "sourceRoot": "projects/ngx-slider-captcha/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:ng-packagr",
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/ngx-slider-captcha/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/ngx-slider-captcha/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular/build:karma",
+          "options": {
+            "tsConfig": "projects/ngx-slider-captcha/tsconfig.spec.json",
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ]
+          }
+        }
+      }
+    },
+    "ngx-slider-captcha-app": {
+      "projectType": "application",
+      "schematics": {},
+      "root": "projects/ngx-slider-captcha-app",
+      "sourceRoot": "projects/ngx-slider-captcha-app/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:application",
+          "options": {
+            "browser": "projects/ngx-slider-captcha-app/src/main.ts",
+            "tsConfig": "projects/ngx-slider-captcha-app/tsconfig.app.json",
+            "assets": [
+              {
+                "glob": "**/*",
+                "input": "projects/ngx-slider-captcha-app/public"
+              }
+            ],
+            "styles": [
+              "projects/ngx-slider-captcha-app/src/styles.css"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kB",
+                  "maximumError": "1MB"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "4kB",
+                  "maximumError": "8kB"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular/build:dev-server",
+          "configurations": {
+            "production": {
+              "buildTarget": "ngx-slider-captcha-app:build:production"
+            },
+            "development": {
+              "buildTarget": "ngx-slider-captcha-app:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular/build:extract-i18n"
+        },
+        "test": {
+          "builder": "@angular/build:karma",
+          "options": {
+            "tsConfig": "projects/ngx-slider-captcha-app/tsconfig.spec.json",
+            "assets": [
+              {
+                "glob": "**/*",
+                "input": "projects/ngx-slider-captcha-app/public"
+              }
+            ],
+            "styles": [
+              "projects/ngx-slider-captcha-app/src/styles.css"
+            ]
+          }
+        }
+      }
+    }
   }
 }
